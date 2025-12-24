@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.490bf74c45514849960651a296369fdf',
+  appId: 'app.lovable.rebootjourney',
   appName: 'reboot-journey-app',
   webDir: 'dist',
   server: {
