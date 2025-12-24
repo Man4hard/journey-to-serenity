@@ -1,13 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React from 'react';
+import { useApp } from '@/contexts/AppContext';
+import Onboarding from '@/components/Onboarding';
+import Home from './Home';
+import LanguageToggle from '@/components/LanguageToggle';
+import BottomNav from '@/components/BottomNav';
+import EmergencyButton from '@/components/EmergencyButton';
 
-const Index = () => {
+const Index: React.FC = () => {
+  const { hasOnboarded } = useApp();
+
+  if (!hasOnboarded) {
+    return <Onboarding />;
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      <LanguageToggle />
+      <Home />
+      <EmergencyButton />
+      <BottomNav />
+    </>
   );
 };
 
