@@ -15,7 +15,7 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-md hover:shadow-xl border-glow [&:hover_svg]:scale-110",
         ghost: "hover:bg-muted/50 hover:text-foreground [&:hover_svg]:scale-110",
         link: "text-primary underline-offset-4 hover:underline [&:hover_svg]:translate-x-0.5",
-        emergency: "bg-gradient-to-r from-accent to-accent-dark text-accent-foreground shadow-xl glow-accent pulse-emergency font-bold [&:hover_svg]:scale-125",
+        emergency: "bg-gradient-to-r from-accent to-accent-dark text-accent-foreground shadow-xl glow-accent font-bold [&:hover_svg]:scale-125",
         success: "bg-gradient-to-r from-secondary to-secondary-dark text-secondary-foreground shadow-lg hover:shadow-2xl shine border-glow [&:hover_svg]:scale-110",
         calm: "bg-primary/15 text-primary hover:bg-primary/25 border border-primary/30 backdrop-blur-sm hover:shadow-md [&:hover_svg]:scale-110",
         glass: "glass hover:bg-card/50 text-foreground shadow-glass hover:shadow-elevated shine [&:hover_svg]:scale-110",
