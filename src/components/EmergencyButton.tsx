@@ -75,7 +75,7 @@ const EmergencyButton: React.FC<EmergencyButtonProps> = ({
               <div>
                 <h2 className="text-xl font-bold text-gradient">{t('needHelp')}</h2>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Choose a tool to manage this moment
+                  {t('chooseTool')}
                 </p>
               </div>
               <Button variant="ghost" size="icon" onClick={handleClose} className="rounded-full">

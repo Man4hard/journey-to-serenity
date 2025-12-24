@@ -26,13 +26,13 @@ const RelapseModal: React.FC<RelapseModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = () => {
     if (!selectedTrigger) {
-      toast.error('Please select a trigger');
+      toast.error(t('pleaseSelectTrigger'));
       return;
     }
     
     logRelapse(selectedTrigger);
-    toast('Counter reset', {
-      description: "Remember: Every new beginning is a chance to grow stronger.",
+    toast(t('counterReset'), {
+      description: t('newBeginningMessage'),
       icon: <Heart className="h-5 w-5 text-accent" />,
     });
     onClose();

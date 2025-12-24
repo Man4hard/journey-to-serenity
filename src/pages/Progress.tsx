@@ -84,17 +84,17 @@ const Progress: React.FC = () => {
         {recentCheckIns.length > 0 && (
           <Card variant="default">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Recent Check-ins</CardTitle>
+              <CardTitle className="text-lg">{t('recentCheckIns')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 rounded-xl bg-muted/50 text-center">
                   <p className="text-3xl font-bold text-foreground">{avgMood}</p>
-                  <p className="text-sm text-muted-foreground">{t('mood')} avg</p>
+                  <p className="text-sm text-muted-foreground">{t('mood')} {t('avg')}</p>
                 </div>
                 <div className="p-4 rounded-xl bg-muted/50 text-center">
                   <p className="text-3xl font-bold text-foreground">{avgEnergy}</p>
-                  <p className="text-sm text-muted-foreground">{t('energy')} avg</p>
+                  <p className="text-sm text-muted-foreground">{t('energy')} {t('avg')}</p>
                 </div>
               </div>
             </CardContent>

@@ -69,7 +69,7 @@ const Home: React.FC = () => {
               </CardTitle>
               <Link to="/progress">
                 <Button variant="ghost" size="sm" className="text-primary hover:text-primary h-8 px-2">
-                  View All
+                  {t('viewAll')}
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -99,7 +99,7 @@ const Home: React.FC = () => {
                     requiredDays={nextAchievement.requiredDays}
                     size="md"
                   />
-                  <p className="text-xs text-muted-foreground">Your next milestone</p>
+                  <p className="text-xs text-muted-foreground">{t('yourNextMilestone')}</p>
                 </div>
               ) : null}
             </div>
