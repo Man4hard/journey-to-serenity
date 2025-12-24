@@ -117,9 +117,11 @@ const Home: React.FC = () => {
       />
 
       {/* Emergency Panel */}
-      {showEmergency && (
-        <EmergencyButton isOpen={showEmergency} onClose={() => setShowEmergency(false)} />
-      )}
+      <EmergencyButton 
+        isOpen={showEmergency} 
+        onClose={() => setShowEmergency(false)}
+        showFloatingButton={false}
+      />
     </div>
   );
 };
