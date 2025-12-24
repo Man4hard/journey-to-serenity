@@ -26,32 +26,34 @@ const BottomNav: React.FC = () => {
               key={path}
               to={path}
               className={cn(
-                "relative flex flex-col items-center justify-center gap-1 px-4 py-3 rounded-2xl transition-all duration-300 min-w-[64px]",
+                "group relative flex flex-col items-center justify-center gap-1 px-4 py-3 rounded-2xl transition-all duration-300 min-w-[64px]",
                 isActive 
                   ? "text-primary" 
-                  : "text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:-translate-y-0.5"
               )}
             >
-              {/* Active Background */}
-              {isActive && (
-                <div className="absolute inset-0 bg-primary/10 rounded-2xl" />
-              )}
+              {/* Active Background with animation */}
+              <div className={cn(
+                "absolute inset-0 bg-primary/10 rounded-2xl transition-all duration-300",
+                isActive ? "opacity-100 scale-100" : "opacity-0 scale-90 group-hover:opacity-50 group-hover:scale-100"
+              )} />
               
               <Icon className={cn(
                 "h-5 w-5 transition-all duration-300 relative z-10",
-                isActive && "scale-110"
+                isActive ? "scale-110" : "group-hover:scale-110 group-hover:-translate-y-0.5"
               )} />
               <span className={cn(
-                "text-xs font-medium relative z-10",
-                isActive && "font-semibold"
+                "text-xs font-medium relative z-10 transition-all duration-300",
+                isActive ? "font-semibold" : "group-hover:font-medium"
               )}>
                 {label}
               </span>
               
-              {/* Active Indicator */}
-              {isActive && (
-                <div className="absolute -bottom-1 w-8 h-1 rounded-full bg-gradient-hero" />
-              )}
+              {/* Active Indicator with animation */}
+              <div className={cn(
+                "absolute -bottom-1 h-1 rounded-full bg-gradient-hero transition-all duration-300",
+                isActive ? "w-8 opacity-100" : "w-0 opacity-0 group-hover:w-4 group-hover:opacity-50"
+              )} />
             </Link>
           );
         })}

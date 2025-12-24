@@ -82,9 +82,9 @@ const StreakCounter: React.FC = () => {
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 gap-4 mt-6">
-        <div className="flex items-center gap-4 p-4 rounded-2xl glass-subtle">
-          <div className="p-3 rounded-xl bg-warning/20">
-            <Trophy className="h-5 w-5 text-warning" />
+        <div className="group flex items-center gap-4 p-4 rounded-2xl glass-subtle hover:glass hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-default">
+          <div className="p-3 rounded-xl bg-warning/20 group-hover:bg-warning/30 group-hover:scale-110 transition-all duration-300">
+            <Trophy className="h-5 w-5 text-warning group-hover:rotate-12 transition-transform duration-300" />
           </div>
           <div>
             <p className="text-2xl font-bold font-mono text-foreground">{longestStreak}</p>
@@ -92,9 +92,9 @@ const StreakCounter: React.FC = () => {
           </div>
         </div>
         
-        <div className="flex items-center gap-4 p-4 rounded-2xl glass-subtle">
-          <div className="p-3 rounded-xl bg-secondary/20">
-            <Calendar className="h-5 w-5 text-secondary" />
+        <div className="group flex items-center gap-4 p-4 rounded-2xl glass-subtle hover:glass hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-default">
+          <div className="p-3 rounded-xl bg-secondary/20 group-hover:bg-secondary/30 group-hover:scale-110 transition-all duration-300">
+            <Calendar className="h-5 w-5 text-secondary group-hover:rotate-12 transition-transform duration-300" />
           </div>
           <div>
             <p className="text-2xl font-bold font-mono text-foreground">{totalCleanDays + currentStreak}</p>

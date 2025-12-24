@@ -56,22 +56,22 @@ const MotivationalQuote: React.FC = () => {
   }, []);
 
   return (
-    <Card variant="glass" className="overflow-hidden relative">
-      {/* Decorative gradient */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-full" />
+    <Card variant="glass" className="overflow-hidden relative group cursor-default">
+      {/* Decorative gradient with animation */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-full group-hover:w-40 group-hover:h-40 transition-all duration-500" />
       
       <CardContent className="p-6 relative">
         <div className="flex items-start gap-4">
-          <div className="p-3 rounded-xl bg-gradient-hero shrink-0">
+          <div className="p-3 rounded-xl bg-gradient-hero shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
             <Quote className="h-5 w-5 text-primary-foreground" />
           </div>
           <div className="space-y-3">
-            <p className="text-foreground leading-relaxed font-medium text-lg">
+            <p className="text-foreground leading-relaxed font-medium text-lg group-hover:text-gradient transition-all duration-300">
               "{language === 'ar' ? todaysQuote.ar : todaysQuote.en}"
             </p>
             {todaysQuote.author && (
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-3 w-3 text-secondary" />
+              <div className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300">
+                <Sparkles className="h-3 w-3 text-secondary group-hover:animate-pulse" />
                 <p className="text-sm text-muted-foreground font-medium">
                   {todaysQuote.author}
                 </p>
