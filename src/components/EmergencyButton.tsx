@@ -60,17 +60,17 @@ const EmergencyButton: React.FC = () => {
               </Button>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 stagger-children">
               {distractions.map(({ icon: Icon, label, action, gradient }) => (
                 <button
                   key={label}
                   onClick={action}
-                  className="group flex flex-col items-center gap-4 p-6 rounded-2xl glass hover:glass-strong transition-all duration-300 card-interactive"
+                  className="group flex flex-col items-center gap-4 p-6 rounded-2xl glass hover:glass-strong transition-all duration-300 hover:-translate-y-2 hover:shadow-elevated border-glow"
                 >
-                  <div className={`p-4 rounded-xl bg-gradient-to-br ${gradient} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="h-6 w-6 text-white" />
+                  <div className={`p-4 rounded-xl bg-gradient-to-br ${gradient} shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                    <Icon className="h-6 w-6 text-white group-hover:scale-110 transition-transform duration-300" />
                   </div>
-                  <span className="text-sm font-medium text-foreground">{label}</span>
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-300">{label}</span>
                 </button>
               ))}
             </div>
