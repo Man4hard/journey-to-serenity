@@ -6,17 +6,18 @@ import DailyCheckIn from '@/components/DailyCheckIn';
 import MotivationalQuote from '@/components/MotivationalQuote';
 import AchievementBadge from '@/components/AchievementBadge';
 import RelapseModal from '@/components/RelapseModal';
+import EmergencyButton from '@/components/EmergencyButton';
 import NewsFeed from '@/components/NewsFeed';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { RotateCcw, ChevronRight, Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const { t } = useLanguage();
   const { achievements } = useApp();
   const [showRelapseModal, setShowRelapseModal] = useState(false);
-  const [showFullStreak, setShowFullStreak] = useState(true);
+  const [showEmergency, setShowEmergency] = useState(false);
 
   const recentAchievements = achievements.filter(a => a.unlocked).slice(-3);
   const nextAchievement = achievements.find(a => !a.unlocked);
@@ -43,29 +44,14 @@ const Home: React.FC = () => {
           <p className="text-muted-foreground mt-2">{t('keepGoing')}</p>
         </div>
 
-        {/* Collapsible Streak Counter */}
+        {/* Streak Counter - Always Visible */}
         <Card variant="elevated" className="overflow-hidden">
-          <button 
-            onClick={() => setShowFullStreak(!showFullStreak)}
-            className="w-full flex items-center justify-between p-4 hover:bg-muted/10 transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-gradient-hero">
-                <Sparkles className="h-4 w-4 text-primary-foreground" />
-              </div>
-              <span className="font-semibold text-foreground">Your Streak</span>
-            </div>
-            {showFullStreak ? (
-              <ChevronUp className="h-5 w-5 text-muted-foreground" />
-            ) : (
-              <ChevronDown className="h-5 w-5 text-muted-foreground" />
-            )}
-          </button>
-          {showFullStreak && (
-            <CardContent className="p-6 pt-0">
-              <StreakCounter />
-            </CardContent>
-          )}
+          <CardContent className="p-6">
+            <StreakCounter 
+              onPanicClick={() => setShowEmergency(true)}
+              onRelapseClick={() => setShowRelapseModal(true)}
+            />
+          </CardContent>
         </Card>
 
         {/* Daily Check-in */}
@@ -122,22 +108,18 @@ const Home: React.FC = () => {
 
         {/* News Feed - YouTube, Blogs, Kegel Exercise */}
         <NewsFeed />
-
-        {/* Log Relapse Button */}
-        <Button
-          variant="outline"
-          className="w-full border-dashed border-muted-foreground/30"
-          onClick={() => setShowRelapseModal(true)}
-        >
-          <RotateCcw className="h-4 w-4 mr-2" />
-          {t('logRelapse')}
-        </Button>
       </div>
 
+      {/* Relapse Modal */}
       <RelapseModal
         isOpen={showRelapseModal}
         onClose={() => setShowRelapseModal(false)}
       />
+
+      {/* Emergency Panel */}
+      {showEmergency && (
+        <EmergencyButton isOpen={showEmergency} onClose={() => setShowEmergency(false)} />
+      )}
     </div>
   );
 };
