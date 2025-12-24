@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound";
 import LanguageToggle from "@/components/LanguageToggle";
 import BottomNav from "@/components/BottomNav";
 import EmergencyButton from "@/components/EmergencyButton";
+import AchievementWatcher from "@/components/AchievementWatcher";
 import { useApp } from "@/contexts/AppContext";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,9 @@ const AppContent = () => {
 
   return (
     <BrowserRouter>
+      {/* Achievement watcher for sounds & haptics */}
+      <AchievementWatcher />
+      
       {hasOnboarded && (
         <>
           <LanguageToggle />

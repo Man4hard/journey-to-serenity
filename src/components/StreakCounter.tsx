@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '@/contexts/AppContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { AlertTriangle, TreePine } from 'lucide-react';
+import { useFeedback } from '@/hooks/useFeedback';
 
 interface StreakCounterProps {
   onPanicClick?: () => void;
@@ -11,6 +12,7 @@ interface StreakCounterProps {
 const StreakCounter: React.FC<StreakCounterProps> = ({ onPanicClick, onRelapseClick }) => {
   const { startDate, relapses } = useApp();
   const { t } = useLanguage();
+  const { playMilestone, playCountdownBeep, playClick } = useFeedback();
   
   const [timeElapsed, setTimeElapsed] = useState({
     days: 0,
@@ -20,7 +22,10 @@ const StreakCounter: React.FC<StreakCounterProps> = ({ onPanicClick, onRelapseCl
     totalSeconds: 0,
   });
 
-  // Real-time timer
+  const lastMilestoneRef = useRef<number>(0);
+  const lastRemainingRef = useRef<number>(999);
+
+  // Real-time timer with milestone detection
   useEffect(() => {
     const calculateTime = () => {
       const start = startDate ? new Date(startDate) : new Date();
@@ -79,6 +84,24 @@ const StreakCounter: React.FC<StreakCounterProps> = ({ onPanicClick, onRelapseCl
   const remaining = getRemainingTime();
   const relapseCount = relapses?.length || 0;
 
+  // Play sounds for milestones and countdown
+  useEffect(() => {
+    // Check for milestone reached
+    if (milestone.targetSeconds !== lastMilestoneRef.current && 
+        timeElapsed.totalSeconds >= milestone.targetSeconds) {
+      playMilestone();
+      lastMilestoneRef.current = milestone.targetSeconds;
+    }
+    
+    // Countdown beeps for last 3 seconds before milestone
+    if (remaining.mins === 0 && remaining.secs <= 3 && remaining.secs > 0) {
+      if (remaining.secs !== lastRemainingRef.current) {
+        playCountdownBeep();
+        lastRemainingRef.current = remaining.secs;
+      }
+    }
+  }, [timeElapsed.totalSeconds, milestone.targetSeconds, remaining, playMilestone, playCountdownBeep]);
+
   // Circle calculations
   const size = 260;
   const strokeWidth = 10;
@@ -86,11 +109,21 @@ const StreakCounter: React.FC<StreakCounterProps> = ({ onPanicClick, onRelapseCl
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
+  const handlePanicClick = () => {
+    playClick();
+    onPanicClick?.();
+  };
+
+  const handleRelapseClick = () => {
+    playClick();
+    onRelapseClick?.();
+  };
+
   return (
     <div className="relative">
       {/* Panic Button - Top Right */}
       <button
-        onClick={onPanicClick}
+        onClick={handlePanicClick}
         className="absolute -top-2 -right-2 flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-destructive/10 transition-all duration-300 group z-10"
       >
         <div className="p-2 rounded-xl bg-destructive/20 group-hover:bg-destructive/30 group-hover:scale-110 transition-all duration-300">
@@ -187,7 +220,7 @@ const StreakCounter: React.FC<StreakCounterProps> = ({ onPanicClick, onRelapseCl
         <div className="flex items-center justify-between w-full px-2">
           {/* Relapse Button */}
           <button
-            onClick={onRelapseClick}
+            onClick={handleRelapseClick}
             className="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-muted/20 transition-all duration-300 group"
           >
             <TreePine className="h-7 w-7 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
