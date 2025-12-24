@@ -119,6 +119,16 @@ const StreakCounter: React.FC<StreakCounterProps> = ({ onPanicClick, onRelapseCl
     onRelapseClick?.();
   };
 
+  const getOrdinalSuffix = (n: number) => {
+    if (language === 'ar') return '';
+    if (n === 1) return 'st';
+    if (n === 2) return 'nd';
+    if (n === 3) return 'rd';
+    return 'th';
+  };
+
+  const { language } = useLanguage();
+
   return (
     <div className="relative">
       {/* Panic Button - Top Right */}
@@ -129,14 +139,14 @@ const StreakCounter: React.FC<StreakCounterProps> = ({ onPanicClick, onRelapseCl
         <div className="p-2 rounded-xl bg-destructive/20 group-hover:bg-destructive/30 group-hover:scale-110 transition-all duration-300">
           <AlertTriangle className="h-5 w-5 text-destructive" />
         </div>
-        <span className="text-[10px] text-muted-foreground group-hover:text-destructive transition-colors">Panic Button</span>
+        <span className="text-[10px] text-muted-foreground group-hover:text-destructive transition-colors">{t('panicButton')}</span>
       </button>
 
       {/* Main Circle */}
       <div className="flex flex-col items-center">
         {/* STREAK Title */}
         <div className="mb-3">
-          <h2 className="text-base font-bold tracking-[0.3em] text-foreground text-center">STREAK</h2>
+          <h2 className="text-base font-bold tracking-[0.3em] text-foreground text-center">{t('streakTitle')}</h2>
           <div className="h-0.5 w-14 mx-auto bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 rounded-full mt-1" />
         </div>
 
@@ -183,34 +193,34 @@ const StreakCounter: React.FC<StreakCounterProps> = ({ onPanicClick, onRelapseCl
             {/* Days */}
             <div className="flex items-baseline gap-1">
               <span className="text-5xl font-bold font-mono text-foreground">{timeElapsed.days}</span>
-              <span className="text-base text-muted-foreground">Days</span>
+              <span className="text-base text-muted-foreground">{t('days')}</span>
             </div>
             
             {/* Hours & Minutes */}
             <div className="flex items-baseline gap-0.5 mt-0.5">
               <span className="text-3xl font-bold font-mono text-foreground">{timeElapsed.hours}</span>
-              <span className="text-xs text-muted-foreground">Hrs</span>
+              <span className="text-xs text-muted-foreground">{t('hours')}</span>
               <span className="text-3xl font-bold font-mono text-foreground ml-1">{timeElapsed.minutes}</span>
-              <span className="text-xs text-muted-foreground">Mins</span>
+              <span className="text-xs text-muted-foreground">{t('mins')}</span>
             </div>
             
             {/* Seconds */}
             <div className="flex items-baseline gap-0.5 mt-0.5">
               <span className="text-2xl font-bold font-mono text-foreground">{timeElapsed.seconds.toString().padStart(2, '0')}</span>
-              <span className="text-xs text-muted-foreground">secs</span>
+              <span className="text-xs text-muted-foreground">{t('secs')}</span>
             </div>
             
             {/* Of Sobriety */}
-            <p className="text-[10px] tracking-[0.15em] text-pink-400 mt-1.5 font-medium uppercase">of sobriety</p>
+            <p className="text-[10px] tracking-[0.15em] text-pink-400 mt-1.5 font-medium uppercase">{t('ofSobriety')}</p>
           </div>
         </div>
 
         {/* Remaining Time */}
         <div className="mt-4 text-center">
           <p className="text-base font-semibold text-foreground">
-            ONLY <span className="text-pink-400">{remaining.mins}m {remaining.secs}s</span> REMAINING
+            {t('only')} <span className="text-pink-400">{remaining.mins}m {remaining.secs}s</span> {t('remaining')}
           </p>
-          <p className="text-[10px] text-muted-foreground mt-0.5">to {milestone.target}{milestone.unit} milestone</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5">{t('toMilestone')} {milestone.target}{milestone.unit}</p>
         </div>
 
         {/* Divider */}
@@ -224,16 +234,16 @@ const StreakCounter: React.FC<StreakCounterProps> = ({ onPanicClick, onRelapseCl
             className="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-muted/20 transition-all duration-300 group"
           >
             <TreePine className="h-7 w-7 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
-            <span className="text-[10px] text-muted-foreground group-hover:text-foreground transition-colors">(Click here for Relapse)</span>
+            <span className="text-[10px] text-muted-foreground group-hover:text-foreground transition-colors">{t('clickForRelapse')}</span>
           </button>
 
           {/* Attempt Counter */}
           <div className="text-right">
-            <p className="text-xs font-bold text-muted-foreground tracking-wider">ATTEMPT</p>
+            <p className="text-xs font-bold text-muted-foreground tracking-wider">{t('attempt')}</p>
             <div className="flex items-baseline justify-end">
               <span className="text-4xl font-bold text-pink-400">{relapseCount + 1}</span>
               <span className="text-xs text-muted-foreground ml-0.5">
-                {relapseCount + 1 === 1 ? 'st' : relapseCount + 1 === 2 ? 'nd' : relapseCount + 1 === 3 ? 'rd' : 'th'}
+                {getOrdinalSuffix(relapseCount + 1)}
               </span>
             </div>
           </div>

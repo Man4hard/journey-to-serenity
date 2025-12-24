@@ -18,10 +18,10 @@ const KegalExerciseCard: React.FC = () => {
   const lastPhaseRef = useRef<string>(phase);
 
   const phases = {
-    squeeze: { duration: 5, next: 'hold' as const, label: 'Squeeze', color: 'from-primary to-primary-light' },
-    hold: { duration: 5, next: 'release' as const, label: 'Hold', color: 'from-secondary to-secondary-light' },
-    release: { duration: 3, next: 'rest' as const, label: 'Release', color: 'from-accent to-accent-light' },
-    rest: { duration: 3, next: 'squeeze' as const, label: 'Rest', color: 'from-muted to-muted' },
+    squeeze: { duration: 5, next: 'hold' as const, labelKey: 'squeeze', color: 'from-primary to-primary-light' },
+    hold: { duration: 5, next: 'release' as const, labelKey: 'hold', color: 'from-secondary to-secondary-light' },
+    release: { duration: 3, next: 'rest' as const, labelKey: 'release', color: 'from-accent to-accent-light' },
+    rest: { duration: 3, next: 'squeeze' as const, labelKey: 'rest', color: 'from-muted to-muted' },
   };
 
   useEffect(() => {
@@ -97,12 +97,12 @@ const KegalExerciseCard: React.FC = () => {
               <Zap className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h3 className="font-bold text-foreground">Kegel Exercise</h3>
-              <p className="text-xs text-muted-foreground">Strengthen pelvic floor</p>
+              <h3 className="font-bold text-foreground">{t('kegelExercise')}</h3>
+              <p className="text-xs text-muted-foreground">{t('strengthenPelvic')}</p>
             </div>
           </div>
           <div className="px-3 py-1 rounded-full glass-subtle text-xs font-semibold">
-            EXERCISE
+            {t('exercise')}
           </div>
         </div>
 
@@ -112,12 +112,12 @@ const KegalExerciseCard: React.FC = () => {
               <CheckCircle2 className="h-12 w-12 text-success" />
             </div>
             <div>
-              <h4 className="text-xl font-bold text-success">Great Job!</h4>
-              <p className="text-muted-foreground text-sm">You completed {totalReps} reps</p>
+              <h4 className="text-xl font-bold text-success">{t('greatJob')}</h4>
+              <p className="text-muted-foreground text-sm">{t('youCompleted')} {totalReps} {t('reps')}</p>
             </div>
             <Button variant="outline" onClick={handleReset} className="mt-4">
               <RotateCcw className="h-4 w-4 mr-2" />
-              Start Again
+              {t('startAgain')}
             </Button>
           </div>
         ) : (
@@ -157,7 +157,7 @@ const KegalExerciseCard: React.FC = () => {
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
                   <span className="text-3xl font-bold font-mono text-foreground">{timeLeft}</span>
                   <span className={`text-sm font-semibold bg-gradient-to-r ${currentPhaseData.color} bg-clip-text text-transparent`}>
-                    {currentPhaseData.label}
+                    {t(currentPhaseData.labelKey)}
                   </span>
                 </div>
               </div>
@@ -166,8 +166,8 @@ const KegalExerciseCard: React.FC = () => {
             {/* Reps Progress */}
             <div className="mb-4">
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-muted-foreground">Progress</span>
-                <span className="font-semibold text-foreground">{reps}/{totalReps} reps</span>
+                <span className="text-muted-foreground">{t('progress')}</span>
+                <span className="font-semibold text-foreground">{reps}/{totalReps} {t('reps')}</span>
               </div>
               <div className="h-2 rounded-full bg-muted/30 overflow-hidden">
                 <div 
@@ -182,12 +182,12 @@ const KegalExerciseCard: React.FC = () => {
               {!isActive ? (
                 <Button variant="success" className="flex-1" onClick={handleStart}>
                   <Play className="h-4 w-4 mr-2 fill-current" />
-                  {reps > 0 ? 'Resume' : 'Start'}
+                  {reps > 0 ? t('resume') : t('start')}
                 </Button>
               ) : (
                 <Button variant="outline" className="flex-1" onClick={handlePause}>
                   <Pause className="h-4 w-4 mr-2" />
-                  Pause
+                  {t('pause')}
                 </Button>
               )}
               <Button variant="ghost" size="icon" onClick={handleReset}>

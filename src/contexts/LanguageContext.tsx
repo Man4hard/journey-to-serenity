@@ -35,6 +35,7 @@ const translations: Translations = {
   breatheIn: { en: 'Breathe In', ar: 'شهيق' },
   hold: { en: 'Hold', ar: 'احبس' },
   breatheOut: { en: 'Breathe Out', ar: 'زفير' },
+  chooseTool: { en: 'Choose a tool to manage this moment', ar: 'اختر أداة لإدارة هذه اللحظة' },
   
   // Tools
   breathingExercise: { en: 'Breathing Exercise', ar: 'تمرين التنفس' },
@@ -52,6 +53,10 @@ const translations: Translations = {
   medium: { en: 'Medium', ar: 'متوسط' },
   high: { en: 'High', ar: 'مرتفع' },
   submit: { en: 'Submit', ar: 'إرسال' },
+  complete: { en: 'Complete', ar: 'مكتمل' },
+  greatJobToday: { en: 'Great job checking in today', ar: 'عمل رائع بتسجيلك اليوم' },
+  checkInSaved: { en: 'Check-in saved!', ar: 'تم حفظ التسجيل!' },
+  keepUpGreatWork: { en: 'Keep up the great work today.', ar: 'استمر في العمل الرائع اليوم.' },
   
   // Journal
   newEntry: { en: 'New Entry', ar: 'إدخال جديد' },
@@ -68,10 +73,12 @@ const translations: Translations = {
   twoWeeks: { en: 'Two Weeks Warrior', ar: 'محارب أسبوعين' },
   oneMonth: { en: 'Monthly Champion', ar: 'بطل الشهر' },
   threeMonths: { en: '90 Day Master', ar: 'سيد التسعين يوماً' },
+  viewAll: { en: 'View All', ar: 'عرض الكل' },
+  yourNextMilestone: { en: 'Your next milestone', ar: 'إنجازك القادم' },
   
   // Relapse
   logRelapse: { en: 'Log Relapse', ar: 'تسجيل انتكاسة' },
-  relapseMessage: { en: 'It\'s okay. Recovery isn\'t linear. What triggered this?', ar: 'لا بأس. التعافي ليس خطياً. ما الذي أثار هذا؟' },
+  relapseMessage: { en: "It's okay. Recovery isn't linear. What triggered this?", ar: 'لا بأس. التعافي ليس خطياً. ما الذي أثار هذا؟' },
   trigger: { en: 'Trigger', ar: 'المحفز' },
   stress: { en: 'Stress', ar: 'التوتر' },
   boredom: { en: 'Boredom', ar: 'الملل' },
@@ -79,6 +86,9 @@ const translations: Translations = {
   anxiety: { en: 'Anxiety', ar: 'القلق' },
   other: { en: 'Other', ar: 'أخرى' },
   resetStreak: { en: 'Reset & Continue', ar: 'إعادة والاستمرار' },
+  pleaseSelectTrigger: { en: 'Please select a trigger', ar: 'الرجاء اختيار المحفز' },
+  counterReset: { en: 'Counter reset', ar: 'تم إعادة العداد' },
+  newBeginningMessage: { en: 'Remember: Every new beginning is a chance to grow stronger.', ar: 'تذكر: كل بداية جديدة هي فرصة لتصبح أقوى.' },
   
   // Settings
   settings: { en: 'Settings', ar: 'الإعدادات' },
@@ -89,17 +99,19 @@ const translations: Translations = {
   // Onboarding
   getStarted: { en: 'Get Started', ar: 'ابدأ الآن' },
   onboardingTitle1: { en: 'Take Control', ar: 'تحكم بحياتك' },
-  onboardingDesc1: { en: 'Your journey to freedom starts here. We\'re with you every step of the way.', ar: 'رحلتك نحو الحرية تبدأ هنا. نحن معك في كل خطوة.' },
+  onboardingDesc1: { en: "Your journey to freedom starts here. We're with you every step of the way.", ar: 'رحلتك نحو الحرية تبدأ هنا. نحن معك في كل خطوة.' },
   onboardingTitle2: { en: 'Track Progress', ar: 'تتبع التقدم' },
   onboardingDesc2: { en: 'Celebrate every day of progress with visual streaks and achievements.', ar: 'احتفل بكل يوم من التقدم مع السلاسل المرئية والإنجازات.' },
   onboardingTitle3: { en: 'Find Support', ar: 'اعثر على الدعم' },
   onboardingDesc3: { en: 'Access tools for urge management and build healthier habits.', ar: 'الوصول إلى أدوات إدارة الرغبات وبناء عادات صحية.' },
   next: { en: 'Next', ar: 'التالي' },
   skip: { en: 'Skip', ar: 'تخطي' },
+  stepOf: { en: 'Step', ar: 'خطوة' },
+  of: { en: 'of', ar: 'من' },
   
   // Motivation
   motivationalQuote: { en: 'Daily Motivation', ar: 'تحفيز يومي' },
-  youGotThis: { en: 'You\'ve got this!', ar: 'يمكنك فعلها!' },
+  youGotThis: { en: "You've got this!", ar: 'يمكنك فعلها!' },
   everyDayMatters: { en: 'Every day matters', ar: 'كل يوم مهم' },
   
   // Stats
@@ -108,6 +120,43 @@ const translations: Translations = {
   thisMonth: { en: 'This Month', ar: 'هذا الشهر' },
   allTime: { en: 'All Time', ar: 'كل الوقت' },
   successRate: { en: 'Success Rate', ar: 'معدل النجاح' },
+  recentCheckIns: { en: 'Recent Check-ins', ar: 'التسجيلات الأخيرة' },
+  avg: { en: 'avg', ar: 'المتوسط' },
+  
+  // Streak Counter
+  streakTitle: { en: 'STREAK', ar: 'السلسلة' },
+  ofSobriety: { en: 'of sobriety', ar: 'من التعافي' },
+  hours: { en: 'Hrs', ar: 'ساعة' },
+  mins: { en: 'Mins', ar: 'دقيقة' },
+  secs: { en: 'secs', ar: 'ثانية' },
+  panicButton: { en: 'Panic Button', ar: 'زر الطوارئ' },
+  clickForRelapse: { en: '(Click here for Relapse)', ar: '(اضغط هنا للانتكاسة)' },
+  attempt: { en: 'ATTEMPT', ar: 'المحاولة' },
+  only: { en: 'ONLY', ar: 'فقط' },
+  remaining: { en: 'REMAINING', ar: 'متبقي' },
+  toMilestone: { en: 'to milestone', ar: 'للإنجاز' },
+  
+  // Kegel Exercise
+  kegelExercise: { en: 'Kegel Exercise', ar: 'تمرين كيجل' },
+  strengthenPelvic: { en: 'Strengthen pelvic floor', ar: 'تقوية عضلات الحوض' },
+  exercise: { en: 'EXERCISE', ar: 'تمرين' },
+  squeeze: { en: 'Squeeze', ar: 'اضغط' },
+  release: { en: 'Release', ar: 'أرخِ' },
+  rest: { en: 'Rest', ar: 'استرح' },
+  greatJob: { en: 'Great Job!', ar: 'عمل رائع!' },
+  youCompleted: { en: 'You completed', ar: 'أكملت' },
+  reps: { en: 'reps', ar: 'تكرار' },
+  startAgain: { en: 'Start Again', ar: 'ابدأ مجدداً' },
+  start: { en: 'Start', ar: 'ابدأ' },
+  resume: { en: 'Resume', ar: 'استئناف' },
+  pause: { en: 'Pause', ar: 'إيقاف' },
+  
+  // Feed
+  yourFeed: { en: 'Your Feed', ar: 'خلاصتك' },
+  curatedForYou: { en: 'Curated for you', ar: 'مختارة لك' },
+  featuredVideo: { en: 'Featured Video', ar: 'فيديو مميز' },
+  moreVideos: { en: 'More Videos', ar: 'المزيد من الفيديوهات' },
+  latestArticles: { en: 'Latest Articles', ar: 'أحدث المقالات' },
 };
 
 interface LanguageContextType {

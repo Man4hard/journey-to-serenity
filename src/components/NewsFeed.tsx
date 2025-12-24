@@ -110,14 +110,14 @@ const NewsFeed: React.FC = () => {
 
   // Create a rich, mixed feed experience
   const feedItems: FeedItem[] = [
-    { type: 'section-header', title: 'Featured Video', icon: 'video' },
+    { type: 'section-header', title: t('featuredVideo'), icon: 'video' },
     { type: 'youtube', data: youtubeVideos[0] },
     { type: 'blog', data: blogPosts[0] },
     { type: 'kegel' },
-    { type: 'section-header', title: 'More Videos', icon: 'video' },
+    { type: 'section-header', title: t('moreVideos'), icon: 'video' },
     { type: 'youtube', data: youtubeVideos[1] },
     { type: 'youtube', data: youtubeVideos[2] },
-    { type: 'section-header', title: 'Latest Articles', icon: 'blog' },
+    { type: 'section-header', title: t('latestArticles'), icon: 'blog' },
     { type: 'blog', data: blogPosts[1] },
     { type: 'blog', data: blogPosts[2] },
     { type: 'youtube', data: youtubeVideos[3] },
@@ -143,9 +143,9 @@ const NewsFeed: React.FC = () => {
     <div className="space-y-4">
       {/* Feed Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold text-gradient">Your Feed</h2>
+        <h2 className="text-lg font-bold text-gradient">{t('yourFeed')}</h2>
         <span className="text-xs text-muted-foreground px-3 py-1 rounded-full glass-subtle">
-          Curated for you
+          {t('curatedForYou')}
         </span>
       </div>
 

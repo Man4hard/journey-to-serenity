@@ -30,8 +30,8 @@ const DailyCheckIn: React.FC = () => {
     setIsSubmitting(true);
     submitCheckIn(mood, energy, temptation);
     playCheckIn();
-    toast.success('Check-in saved!', {
-      description: 'Keep up the great work today.',
+    toast.success(t('checkInSaved'), {
+      description: t('keepUpGreatWork'),
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -48,10 +48,10 @@ const DailyCheckIn: React.FC = () => {
           </div>
           <div>
             <h3 className="font-bold text-secondary-foreground text-lg">
-              {t('dailyCheckIn')} Complete!
+              {t('dailyCheckIn')} {t('complete')}!
             </h3>
             <p className="text-sm text-secondary-foreground/80">
-              Great job checking in today
+              {t('greatJobToday')}
             </p>
           </div>
           <Sparkles className="h-5 w-5 text-secondary-foreground/60 ml-auto" />
