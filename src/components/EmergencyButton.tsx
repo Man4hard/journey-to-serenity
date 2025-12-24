@@ -4,10 +4,33 @@ import { Button } from '@/components/ui/button';
 import { AlertTriangle, X, Wind, Droplets, Music, Brain } from 'lucide-react';
 import BreathingExercise from './BreathingExercise';
 
-const EmergencyButton: React.FC = () => {
+interface EmergencyButtonProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+  showFloatingButton?: boolean;
+}
+
+const EmergencyButton: React.FC<EmergencyButtonProps> = ({ 
+  isOpen: controlledOpen, 
+  onClose,
+  showFloatingButton = true 
+}) => {
   const { t } = useLanguage();
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [showBreathing, setShowBreathing] = useState(false);
+
+  // Support both controlled and uncontrolled modes
+  const isOpen = controlledOpen !== undefined ? controlledOpen : internalOpen;
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      setInternalOpen(false);
+    }
+  };
+  const handleOpen = () => {
+    setInternalOpen(true);
+  };
 
   const distractions = [
     { icon: Wind, label: t('breathingExercise'), action: () => setShowBreathing(true), gradient: 'from-secondary to-secondary-dark' },
@@ -22,12 +45,12 @@ const EmergencyButton: React.FC = () => {
 
   return (
     <>
-      {/* Floating Emergency Button */}
-      {!isOpen && (
+      {/* Floating Emergency Button - only show if not controlled externally */}
+      {showFloatingButton && controlledOpen === undefined && !isOpen && (
         <Button
           variant="emergency"
           size="icon-lg"
-          onClick={() => setIsOpen(true)}
+          onClick={handleOpen}
           className="fixed bottom-28 right-4 z-40 shadow-2xl"
         >
           <AlertTriangle className="h-6 w-6" />
@@ -40,7 +63,7 @@ const EmergencyButton: React.FC = () => {
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-background/80 backdrop-blur-lg animate-fade-in"
-            onClick={() => setIsOpen(false)}
+            onClick={handleClose}
           />
           
           {/* Panel */}
@@ -55,7 +78,7 @@ const EmergencyButton: React.FC = () => {
                   Choose a tool to manage this moment
                 </p>
               </div>
-              <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="rounded-full">
+              <Button variant="ghost" size="icon" onClick={handleClose} className="rounded-full">
                 <X className="h-5 w-5" />
               </Button>
             </div>
