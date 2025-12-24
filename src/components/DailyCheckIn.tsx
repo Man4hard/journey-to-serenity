@@ -6,10 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Check, Smile, Frown, Meh, Zap, AlertCircle, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+import { useFeedback } from '@/hooks/useFeedback';
 
 const DailyCheckIn: React.FC = () => {
   const { t } = useLanguage();
   const { submitCheckIn, lastCheckIn } = useApp();
+  const { playCheckIn, playSuccess } = useFeedback();
   const [mood, setMood] = useState(5);
   const [energy, setEnergy] = useState(5);
   const [temptation, setTemptation] = useState(3);
@@ -27,10 +29,14 @@ const DailyCheckIn: React.FC = () => {
   const handleSubmit = () => {
     setIsSubmitting(true);
     submitCheckIn(mood, energy, temptation);
+    playCheckIn();
     toast.success('Check-in saved!', {
       description: 'Keep up the great work today.',
     });
-    setTimeout(() => setIsSubmitting(false), 1000);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      playSuccess();
+    }, 500);
   };
 
   if (hasCheckedInToday) {

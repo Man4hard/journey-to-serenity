@@ -3,9 +3,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw, Zap, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useFeedback } from '@/hooks/useFeedback';
 
 const KegalExerciseCard: React.FC = () => {
   const { t } = useLanguage();
+  const { playClick, playSuccess, playCountdownBeep, playMilestone, playTick } = useFeedback();
   const [isActive, setIsActive] = useState(false);
   const [phase, setPhase] = useState<'squeeze' | 'hold' | 'release' | 'rest'>('squeeze');
   const [timeLeft, setTimeLeft] = useState(5);
@@ -13,6 +15,7 @@ const KegalExerciseCard: React.FC = () => {
   const [totalReps] = useState(10);
   const [isComplete, setIsComplete] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const lastPhaseRef = useRef<string>(phase);
 
   const phases = {
     squeeze: { duration: 5, next: 'hold' as const, label: 'Squeeze', color: 'from-primary to-primary-light' },
@@ -25,17 +28,29 @@ const KegalExerciseCard: React.FC = () => {
     if (isActive && !isComplete) {
       intervalRef.current = setInterval(() => {
         setTimeLeft(prev => {
+          // Play tick every second
+          if (prev > 1) {
+            playTick();
+          }
+          
+          // Countdown beeps for last 3 seconds
+          if (prev <= 3 && prev > 0) {
+            playCountdownBeep();
+          }
+          
           if (prev <= 1) {
             const currentPhase = phases[phase];
             if (phase === 'rest') {
               if (reps + 1 >= totalReps) {
                 setIsComplete(true);
                 setIsActive(false);
+                playMilestone(); // Celebration sound when complete
                 return 0;
               }
               setReps(r => r + 1);
             }
             setPhase(currentPhase.next);
+            playSuccess(); // Phase transition sound
             return phases[currentPhase.next].duration;
           }
           return prev - 1;
@@ -45,9 +60,10 @@ const KegalExerciseCard: React.FC = () => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isActive, phase, reps, isComplete]);
+  }, [isActive, phase, reps, isComplete, playTick, playCountdownBeep, playSuccess, playMilestone]);
 
   const handleStart = () => {
+    playClick();
     if (isComplete) {
       handleReset();
     }
@@ -55,10 +71,12 @@ const KegalExerciseCard: React.FC = () => {
   };
 
   const handlePause = () => {
+    playClick();
     setIsActive(false);
   };
 
   const handleReset = () => {
+    playClick();
     setIsActive(false);
     setPhase('squeeze');
     setTimeLeft(5);
