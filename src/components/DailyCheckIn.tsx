@@ -4,7 +4,7 @@ import { useApp } from '@/contexts/AppContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
-import { Check, Smile, Frown, Meh, Zap, AlertCircle } from 'lucide-react';
+import { Check, Smile, Frown, Meh, Zap, AlertCircle, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
 const DailyCheckIn: React.FC = () => {
@@ -19,9 +19,9 @@ const DailyCheckIn: React.FC = () => {
   const hasCheckedInToday = lastCheckIn && new Date(lastCheckIn).toDateString() === today;
 
   const getMoodIcon = () => {
-    if (mood >= 7) return <Smile className="h-8 w-8 text-success" />;
-    if (mood >= 4) return <Meh className="h-8 w-8 text-warning" />;
-    return <Frown className="h-8 w-8 text-destructive" />;
+    if (mood >= 7) return <Smile className="h-7 w-7 text-success" />;
+    if (mood >= 4) return <Meh className="h-7 w-7 text-warning" />;
+    return <Frown className="h-7 w-7 text-destructive" />;
   };
 
   const handleSubmit = () => {
@@ -35,39 +35,44 @@ const DailyCheckIn: React.FC = () => {
 
   if (hasCheckedInToday) {
     return (
-      <Card variant="success" className="animate-fade-in">
+      <Card variant="success" className="animate-fade-in overflow-hidden">
         <CardContent className="flex items-center gap-4 p-6">
-          <div className="p-3 rounded-full bg-secondary-foreground/10">
+          <div className="p-3 rounded-full bg-secondary-foreground/20">
             <Check className="h-6 w-6 text-secondary-foreground" />
           </div>
           <div>
-            <h3 className="font-semibold text-secondary-foreground">
+            <h3 className="font-bold text-secondary-foreground text-lg">
               {t('dailyCheckIn')} Complete!
             </h3>
             <p className="text-sm text-secondary-foreground/80">
               Great job checking in today
             </p>
           </div>
+          <Sparkles className="h-5 w-5 text-secondary-foreground/60 ml-auto" />
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card variant="elevated" className="animate-fade-in">
+    <Card variant="elevated" className="animate-fade-in overflow-hidden">
       <CardHeader className="pb-4">
-        <CardTitle className="text-lg">{t('dailyCheckIn')}</CardTitle>
+        <CardTitle className="text-lg flex items-center gap-2">
+          <span className="text-gradient">{t('dailyCheckIn')}</span>
+        </CardTitle>
         <p className="text-sm text-muted-foreground">{t('howAreYou')}</p>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Mood Slider */}
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-foreground flex items-center gap-2">
-              {getMoodIcon()}
+            <label className="text-sm font-medium text-foreground flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-muted/50">
+                {getMoodIcon()}
+              </div>
               {t('mood')}
             </label>
-            <span className="text-sm font-mono text-muted-foreground">{mood}/10</span>
+            <span className="text-sm font-mono text-muted-foreground px-3 py-1 rounded-lg bg-muted/50">{mood}/10</span>
           </div>
           <Slider
             value={[mood]}
@@ -80,13 +85,15 @@ const DailyCheckIn: React.FC = () => {
         </div>
 
         {/* Energy Slider */}
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-foreground flex items-center gap-2">
-              <Zap className="h-5 w-5 text-warning" />
+            <label className="text-sm font-medium text-foreground flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-warning/20">
+                <Zap className="h-5 w-5 text-warning" />
+              </div>
               {t('energy')}
             </label>
-            <span className="text-sm font-mono text-muted-foreground">{energy}/10</span>
+            <span className="text-sm font-mono text-muted-foreground px-3 py-1 rounded-lg bg-muted/50">{energy}/10</span>
           </div>
           <Slider
             value={[energy]}
@@ -99,13 +106,15 @@ const DailyCheckIn: React.FC = () => {
         </div>
 
         {/* Temptation Slider */}
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-foreground flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-accent" />
+            <label className="text-sm font-medium text-foreground flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-accent/20">
+                <AlertCircle className="h-5 w-5 text-accent" />
+              </div>
               {t('temptation')}
             </label>
-            <span className="text-sm font-mono text-muted-foreground">
+            <span className="text-sm font-mono text-muted-foreground px-3 py-1 rounded-lg bg-muted/50">
               {temptation <= 3 ? t('low') : temptation <= 6 ? t('medium') : t('high')}
             </span>
           </div>

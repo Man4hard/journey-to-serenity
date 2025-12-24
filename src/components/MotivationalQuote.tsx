@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
-import { Quote } from 'lucide-react';
+import { Quote, Sparkles } from 'lucide-react';
 
 const quotes = [
   {
@@ -56,18 +56,26 @@ const MotivationalQuote: React.FC = () => {
   }, []);
 
   return (
-    <Card variant="glass" className="overflow-hidden">
-      <CardContent className="p-6">
-        <div className="flex items-start gap-3">
-          <Quote className="h-6 w-6 text-secondary shrink-0 mt-1" />
-          <div className="space-y-2">
-            <p className="text-foreground leading-relaxed italic">
+    <Card variant="glass" className="overflow-hidden relative">
+      {/* Decorative gradient */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-full" />
+      
+      <CardContent className="p-6 relative">
+        <div className="flex items-start gap-4">
+          <div className="p-3 rounded-xl bg-gradient-hero shrink-0">
+            <Quote className="h-5 w-5 text-primary-foreground" />
+          </div>
+          <div className="space-y-3">
+            <p className="text-foreground leading-relaxed font-medium text-lg">
               "{language === 'ar' ? todaysQuote.ar : todaysQuote.en}"
             </p>
             {todaysQuote.author && (
-              <p className="text-sm text-muted-foreground">
-                — {todaysQuote.author}
-              </p>
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-3 w-3 text-secondary" />
+                <p className="text-sm text-muted-foreground font-medium">
+                  {todaysQuote.author}
+                </p>
+              </div>
             )}
           </div>
         </div>

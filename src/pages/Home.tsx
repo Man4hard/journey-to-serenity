@@ -8,7 +8,7 @@ import AchievementBadge from '@/components/AchievementBadge';
 import RelapseModal from '@/components/RelapseModal';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { RotateCcw, ChevronRight } from 'lucide-react';
+import { RotateCcw, ChevronRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -20,17 +20,30 @@ const Home: React.FC = () => {
   const nextAchievement = achievements.find(a => !a.unlocked);
 
   return (
-    <div className="min-h-screen bg-gradient-ocean pb-24">
-      <div className="max-w-lg mx-auto px-4 pt-16 pb-8 space-y-6 page-enter">
+    <div className="min-h-screen relative overflow-hidden pb-24">
+      {/* Background Effects */}
+      <div className="fixed inset-0 bg-background -z-20" />
+      <div className="fixed inset-0 bg-mesh -z-10" />
+      
+      {/* Floating Orbs */}
+      <div className="orb orb-primary w-72 h-72 -top-20 -left-20 animate-pulse" />
+      <div className="orb orb-secondary w-96 h-96 top-1/3 -right-32 float" />
+      <div className="orb orb-accent w-64 h-64 bottom-40 -left-16" />
+      
+      <div className="relative max-w-lg mx-auto px-4 pt-16 pb-8 space-y-6 page-enter">
         {/* Header */}
-        <div className="text-center mb-2">
-          <h1 className="text-2xl font-bold text-foreground">{t('yourJourney')}</h1>
-          <p className="text-muted-foreground">{t('keepGoing')}</p>
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-subtle mb-4">
+            <Sparkles className="h-4 w-4 text-secondary" />
+            <span className="text-sm text-muted-foreground font-medium">Your Recovery Journey</span>
+          </div>
+          <h1 className="text-3xl font-bold text-gradient">{t('yourJourney')}</h1>
+          <p className="text-muted-foreground mt-2">{t('keepGoing')}</p>
         </div>
 
         {/* Streak Counter */}
         <Card variant="elevated" className="overflow-hidden">
-          <CardContent className="p-4">
+          <CardContent className="p-6">
             <StreakCounter />
           </CardContent>
         </Card>
@@ -43,11 +56,13 @@ const Home: React.FC = () => {
 
         {/* Achievements Preview */}
         <Card variant="default">
-          <CardHeader className="pb-2">
+          <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">{t('achievements')}</CardTitle>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <span className="text-gradient">{t('achievements')}</span>
+              </CardTitle>
               <Link to="/progress">
-                <Button variant="ghost" size="sm" className="text-secondary">
+                <Button variant="ghost" size="sm" className="text-primary hover:text-primary">
                   View All
                   <ChevronRight className="h-4 w-4" />
                 </Button>
@@ -69,7 +84,7 @@ const Home: React.FC = () => {
                   />
                 ))
               ) : nextAchievement ? (
-                <div className="flex flex-col items-center gap-2 py-4">
+                <div className="flex flex-col items-center gap-3 py-4">
                   <AchievementBadge
                     icon={nextAchievement.icon}
                     name={nextAchievement.name}
@@ -88,7 +103,7 @@ const Home: React.FC = () => {
         {/* Log Relapse Button */}
         <Button
           variant="outline"
-          className="w-full border-dashed"
+          className="w-full border-dashed border-muted-foreground/30"
           onClick={() => setShowRelapseModal(true)}
         >
           <RotateCcw className="h-4 w-4 mr-2" />
