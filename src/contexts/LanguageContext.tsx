@@ -120,7 +120,10 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language>(() => {
+    const saved = localStorage.getItem('reboot-language') as Language;
+    return saved || 'ar'; // Default to Arabic
+  });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
@@ -128,11 +131,9 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     localStorage.setItem('reboot-language', lang);
   };
 
+  // Set initial direction on mount
   useEffect(() => {
-    const saved = localStorage.getItem('reboot-language') as Language;
-    if (saved) {
-      setLanguage(saved);
-    }
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
   }, []);
 
   const t = (key: string): string => {
