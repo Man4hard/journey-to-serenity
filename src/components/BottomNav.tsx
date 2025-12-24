@@ -17,8 +17,8 @@ const BottomNav: React.FC = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 glass border-t border-border/50 safe-area-pb">
-      <div className="flex items-center justify-around h-16 max-w-lg mx-auto px-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 glass-strong border-t border-border/20 safe-area-pb">
+      <div className="flex items-center justify-around h-20 max-w-lg mx-auto px-2">
         {navItems.map(({ path, icon: Icon, label }) => {
           const isActive = location.pathname === path;
           return (
@@ -26,16 +26,31 @@ const BottomNav: React.FC = () => {
               key={path}
               to={path}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 min-w-[60px]",
+                "relative flex flex-col items-center justify-center gap-1 px-4 py-3 rounded-2xl transition-all duration-300 min-w-[64px]",
                 isActive 
-                  ? "text-secondary bg-secondary/10" 
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  ? "text-primary" 
+                  : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <Icon className={cn("h-5 w-5 transition-transform", isActive && "scale-110")} />
-              <span className="text-xs font-medium">{label}</span>
+              {/* Active Background */}
               {isActive && (
-                <span className="absolute -bottom-0 w-1 h-1 rounded-full bg-secondary" />
+                <div className="absolute inset-0 bg-primary/10 rounded-2xl" />
+              )}
+              
+              <Icon className={cn(
+                "h-5 w-5 transition-all duration-300 relative z-10",
+                isActive && "scale-110"
+              )} />
+              <span className={cn(
+                "text-xs font-medium relative z-10",
+                isActive && "font-semibold"
+              )}>
+                {label}
+              </span>
+              
+              {/* Active Indicator */}
+              {isActive && (
+                <div className="absolute -bottom-1 w-8 h-1 rounded-full bg-gradient-hero" />
               )}
             </Link>
           );
