@@ -4,10 +4,6 @@ const config: CapacitorConfig = {
   appId: 'app.lovable.rebootjourney',
   appName: 'reboot-journey-app',
   webDir: 'dist',
-  server: {
-    url: 'https://490bf74c-4551-4849-9606-51a296369fdf.lovableproject.com?forceHideBadge=true',
-    cleartext: true
-  },
   android: {
     allowMixedContent: true
   },
